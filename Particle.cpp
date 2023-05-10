@@ -3,7 +3,7 @@
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints) {
     m_ttl = TTL;
     m_numPoints = numPoints;
-    m_radiansPerSec = ((float)rand() / RAND_MAX) * M_PI;
+    m_radiansPerSec = ((float)rand() / RAND_MAX) * PI;
     
     // Set up the Cartesian plane for mapping between monitor coordinates and Cartesian coordinates
     m_cartesianPlane.setCenter(0, 0);
@@ -15,7 +15,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     // Set random initial pixel velocities
     m_vx = 100 + rand() % 401;
     if (rand() % 2 == 0) m_vx *= -1;
-    m_vy = -(100 + rand() % 401);
+    m_vy = (100 + rand() % 401);
 
     // Set the initial color of the particle
     m_color1 = Color::White;
@@ -23,7 +23,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
 
     // Generate the vertices of the particle
     float theta = (rand() / (PI /2));
-    float dTheta = 2.0 * M_PI / (numPoints -1);
+    float dTheta = 2.0 * PI / (numPoints -1);
 
     for (int j = 0; j < numPoints; j++) {
         float radius = (rand() % 60) + 20;
