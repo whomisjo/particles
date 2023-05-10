@@ -22,7 +22,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_color2 = Color(rand() % 256, rand() % 256, rand() % 256);
 
     // Generate the vertices of the particle
-    float theta = (rand() / (M_PI /2));
+    float theta = (rand() / (PI /2));
     float dTheta = 2.0 * M_PI / (numPoints -1);
 
     for (int j = 0; j < numPoints; j++) {
@@ -30,8 +30,8 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
         float dx = radius * cos(theta);
         float dy = radius * sin(theta);
         theta += dTheta;
-        m_A(0, j) = dx;
-        m_A(1, j) = dy;
+        m_A(0, j) = dx + m_centerCoordinate.x;
+        m_A(1, j) = dy + m_centerCoordinate.y;
     }
 }
 
@@ -110,8 +110,8 @@ void Particle::unitTests()
 {
     int score = 0;
     cout << "Testing RotationMatrix constructor...";
-    double theta = M_PI / 4.0;
-    RotationMatrix r(M_PI / 4);
+    double theta = PI / 4.0;
+    RotationMatrix r(PI / 4);
     if (r.getRows() == 2 && r.getCols() == 2 && almostEqual(r(0, 0), cos(theta))
         && almostEqual(r(0, 1), -sin(theta))
         && almostEqual(r(1, 0), sin(theta))
@@ -170,7 +170,7 @@ void Particle::unitTests()
     }
     cout << "Applying one rotation of 90 degrees about the origin..." << endl;
     Matrix initialCoords = m_A;
-    rotate(M_PI / 2.0);
+    rotate(PI / 2.0);
     bool rotationPassed = true;
     for (int j = 0; j < initialCoords.getCols(); j++)
     {
